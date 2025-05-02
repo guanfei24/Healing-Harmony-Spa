@@ -1,10 +1,10 @@
+const pool = require("../db"); // Import the PostgreSQL client
+
 const resolvers = {
     Query: {
-        hello: () => 'Hello from GraphQL!',
-    },
-    Mutation: {
-        bookAppointment: (_, { name, date }) => {
-            return `Appointment booked for ${name} on ${date}`;
+        users: async () => {
+            const result = await pool.query("SELECT * FROM users");
+            return result.rows;
         },
     },
 };

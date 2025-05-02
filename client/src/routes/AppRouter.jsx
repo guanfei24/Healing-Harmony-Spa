@@ -14,18 +14,18 @@ export default function AppRouter() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* 公共页面 */}
+        {/* public page */}
         {/* <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/services" element={<Services />} />*/}
         <Route path="/" element={<Booking />} />
 
-        {/* 后台管理系统 */}
+        {/* management system */}
         {/* <Route path="/admin/login" element={<Login />} />
         <Route path="/admin/dashboard" element={<Dashboard />} />
         <Route path="/admin/appointments" element={<Appointments />} /> */}
 
-        {/* 404 页面 */}
+        {/* 404 page */}
         {/* <Route path="*" element={<NotFound />} /> */}
       </Routes>
     </BrowserRouter>
