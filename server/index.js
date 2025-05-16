@@ -37,14 +37,14 @@ async function startServer() {
     app.use("/graphql", expressMiddleware(server));
 
     // Validate index.html path
-    const indexPath = path.join(__dirname, "../client/dist/index.html");
+    const indexPath = path.join(__dirname, "../front/index.html");
     if (!fs.existsSync(indexPath)) {
         console.error(`Error: index.html not found at ${indexPath}`);
         process.exit(1);
     }
 
     // Serve static files (React build output)
-    app.use(express.static(path.join(__dirname, "../client/dist")));
+    app.use(express.static(path.join(__dirname, "../front")));
 
     // Fallback for React SPA routing (ensure it only falls back for routes that aren't /graphql or static)
     app.use((req, res, next) => {
