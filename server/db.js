@@ -1,26 +1,27 @@
 // db.js
-require('dotenv').config({ path: "./server/.env" })
-const { Client } = require('pg');
+require('dotenv').config({ path: './server/.env' });
+const mysql = require('mysql2/promise');
 
-// configure the PostgreSQL client
-const client = new Client({
+const pool = mysql.createPool({
     host: process.env.DB_HOST,
-    port: process.env.DB_PORT,
+    port: process.env.DB_PORT || 3306,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
-    ssl: {
-        rejectUnauthorized: false,
-    },
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0,
+    ssl: process.env.DB_SSL === 'true' ? { rejectUnauthorized: false } : false,
 });
 
-// connect to the database
-client.connect()
-    .then(() => {
-        console.log('Connected to PostgreSQL database');
-    })
-    .catch((err) => {
-        console.error('Database connection error', err.stack);
-    });
+(async () => {
+    try {
+        const conn = await pool.getConnection();
+        console.log('✅ Connected to MySQL database');
+        conn.release();
+    } catch (err) {
+        console.error('❌ MySQL connection error:', err);
+    }
+})();
 
-module.exports = client;
+module.exports = pool;

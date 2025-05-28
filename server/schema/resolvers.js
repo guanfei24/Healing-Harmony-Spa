@@ -1,10 +1,10 @@
-const pool = require("../db"); // Import the PostgreSQL client
+const pool = require("../db");
 
 const resolvers = {
     Query: {
         users: async () => {
-            const result = await pool.query("SELECT * FROM users");
-            return result.rows;
+            const [rows] = await pool.query("SELECT * FROM users");
+            return rows;
         },
     },
 };
